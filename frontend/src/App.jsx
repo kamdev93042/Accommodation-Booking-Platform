@@ -6,7 +6,12 @@ import Layout from './Layout';
 import RegisterPage from './pages/RegisterPage';
 import axios from 'axios';
 import ProtectedRoute from './component/ProtectedRoute';
-import AccountPage from './pages/AccountPage';
+import ProfilePage from './pages/ProfilePage';
+import PlacesPage from './pages/PlacesPage';
+import PlacesFormPage from  './pages/PlacesFormPage';
+import PlacePage from './pages/PlacePage';
+import BookingsPage from './pages/BookingsPage';
+import BookingPage from './pages/BookingPage';
 
 axios.defaults.withCredentials = true;
 
@@ -19,22 +24,55 @@ function App() {
         <Route index element={<IndexPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path='/place/:id' element = {<PlacePage /> } />
 
         {/* Protected routes */}
         <Route
-          path="/account/:subpage?"
+          path="/account"
           element={
             <ProtectedRoute>
-              <AccountPage />
+              <ProfilePage />
             </ProtectedRoute>
           }
         />
 
         <Route
-        path="/account/:subpage/:action"
+        path="/account/places"
         element={
         <ProtectedRoute>
-          <AccountPage />
+          <PlacesPage />
+        </ProtectedRoute>
+        }/>
+
+         <Route
+        path="/account/places/new"
+        element={
+        <ProtectedRoute>
+          <PlacesFormPage />
+        </ProtectedRoute>
+        }/>
+
+        <Route
+        path="/account/places/:id"
+        element={
+        <ProtectedRoute>
+          <PlacesFormPage />
+        </ProtectedRoute>
+        }/>
+
+         <Route
+        path="/account/bookings"
+        element={
+        <ProtectedRoute>
+          <BookingsPage />
+        </ProtectedRoute>
+        }/>
+
+         <Route
+        path="/account/bookings/:id"
+        element={
+        <ProtectedRoute>
+          <BookingPage />
         </ProtectedRoute>
         }/>
         
