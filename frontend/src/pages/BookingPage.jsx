@@ -45,7 +45,7 @@ return (
             {/* ✅ First photo from booking.place.photos */}
             {booking.place?.photos?.length > 0 && (
               <img
-                src={`http://localhost:4000/uploads/${booking.place.photos[0]}`}
+                src={`${import.meta.env.VITE_API_URL}/uploads/${booking.place.photos[0]}`}
                 alt={booking.place.title}
                 className="rounded-2xl w-44 h-44 object-cover flex-shrink-0"
               />

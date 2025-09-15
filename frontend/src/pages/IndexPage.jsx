@@ -23,7 +23,7 @@ export default function IndexPage() {
             <div  className="mb-2">
             {place.photos?.[0] && (
               <img
-                src={`http://localhost:4000/uploads/${place.photos[0]}`}
+                src={`${import.meta.env.VITE_API_URL}/uploads/${place.photos[0]}`}
                 alt={place.title}
                 className="rounded-2xl size-60 object-cover"
                 
