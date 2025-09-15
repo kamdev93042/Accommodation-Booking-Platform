@@ -15,6 +15,10 @@ import { fileURLToPath } from "url";
 import Place from "./models/Place.js";
 import Booking from "./models/Booking.js";
 
+
+const BACKEND_URL = process.env.BACKEND_URL;
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
