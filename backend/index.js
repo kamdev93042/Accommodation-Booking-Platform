@@ -32,12 +32,21 @@ app.use(express.json()); // parse JSON body
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
+const allowedOrigins = process.env.FRONTEND_URL.split(",");
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
 
 
 mongoose.connect(process.env.MONGO_URL)
