@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AccountNav from "../AccountNav";
+import.meta.env.VITE_API_URL
+
 
 
 export default function BookingPage() {
@@ -11,7 +13,8 @@ export default function BookingPage() {
 
   useEffect(() => {
     if (id) {
-      axios.get("http://localhost:4000/bookings", { withCredentials: true })
+      axios.get(`${import.meta.env.VITE_API_URL
+}/bookings`, { withCredentials: true })
         .then(response => {
           // if backend sends array directly
           const data = Array.isArray(response.data) ? response.data : response.data.bookings;

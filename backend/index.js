@@ -30,8 +30,8 @@ app.use('/uploads', express.static(__dirname + '/uploads'));
 
 app.use(
   cors({
+    origin: process.env.FRONTEND_URL,
     credentials: true,
-    origin: "http://localhost:5173",
   })
 );
 
@@ -127,7 +127,7 @@ app.post('/upload-by-link', async (req, res) => {
   res.json([{
     originalname: newName,               // no original name from URL, so reuse filename
     filename: newName,
-    url: `http://localhost:${PORT}/uploads/${newName}`,
+   url: `${BACKEND_URL}/uploads/${newName}`,
   }]);
 });
 
@@ -139,7 +139,7 @@ app.post('/upload', photosMiddleware.array('photos', 100), (req, res) => {
   const uploadedFiles = req.files.map(file => ({
     originalname: file.originalname,
     filename: file.filename,
-    url: `http://localhost:${PORT}/uploads/${file.filename}`
+    url: `${BACKEND_URL}/uploads/${newName}`
   }));
 
   res.json(uploadedFiles);

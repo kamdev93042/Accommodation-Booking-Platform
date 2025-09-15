@@ -4,6 +4,8 @@ import PhotosUploader from "../PhotosUploader";
 import axios from "axios";
 import AccountNav from "../AccountNav";
 import { Navigate, useParams } from "react-router-dom";
+import.meta.env.VITE_API_URL
+
 
 export default function PlacesFormPage(){
     const {id} = useParams();
@@ -24,7 +26,8 @@ export default function PlacesFormPage(){
         if(!id) {
             return;
         }
-        axios.get('http://localhost:4000/places/' + id).then(res => {
+        axios.get(`${import.meta.env.VITE_API_URL
+}/places/` + id).then(res => {
             const { data } = res;
             setTitle(data.title);
             setAddress(data.address);
@@ -78,13 +81,15 @@ export default function PlacesFormPage(){
         };
         if(id) {
             //update
-             await axios.put("http://localhost:4000/places", {
+             await axios.put(`${import.meta.env.VITE_API_URL
+}/places`, {
                 id, ...placeData
         });
         setRedirect(true);
         } else{
             //new place
-            await axios.post("http://localhost:4000/places", placeData
+            await axios.post(`${import.meta.env.VITE_API_URL
+}/places`, placeData
         );
 
         setRedirect(true);

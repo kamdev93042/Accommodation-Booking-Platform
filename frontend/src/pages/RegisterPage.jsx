@@ -6,12 +6,15 @@ export default function RegisterPage() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    import.meta.env.VITE_API_URL
+
 
     async function registerUser(ev){ //creating this function to register any user by doing request to the api
 
         ev.preventDefault(); //It will not reload the page 
         try{
-            await axios.post('http://localhost:4000/register', {
+            await axios.post(`${import.meta.env.VITE_API_URL
+}/register`, {
             name,
             email,
             password,

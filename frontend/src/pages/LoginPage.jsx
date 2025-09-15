@@ -3,6 +3,8 @@ import {useState} from "react";
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
+import.meta.env.VITE_API_URL
+
 
 
 export default function LoginPage() {
@@ -16,9 +18,11 @@ export default function LoginPage() {
         ev.preventDefault();
 
         try {
-            await axios.post("http://localhost:4000/login", { email, password }, { withCredentials: true });
+            await axios.post(`${import.meta.env.VITE_API_URL
+}/login`, { email, password }, { withCredentials: true });
             // Fetch profile immediately after login
-            const { data } = await axios.get("http://localhost:4000/profile", { withCredentials: true });
+            const { data } = await axios.get(`${import.meta.env.VITE_API_URL
+}/profile`, { withCredentials: true });
             setUser(data);
              alert("Login successful");
              setRedirect(true);

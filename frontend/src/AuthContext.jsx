@@ -1,5 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import.meta.env.VITE_API_URL
+
 
 export const AuthContext = createContext();
 
@@ -8,7 +10,8 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    axios.get("http://localhost:4000/profile", { withCredentials: true })
+    axios.get(`${import.meta.env.VITE_API_URL
+}/profile`, { withCredentials: true })
       .then(res => setUser(res.data))
       .catch(() => setUser(null))
       .finally(() => setLoading(false));
@@ -16,7 +19,8 @@ export function AuthProvider({ children }) {
 
   //  logout function
   const logout = async () => {
-    await axios.post("http://localhost:4000/logout", {}, { withCredentials: true });
+    await axios.post(`${import.meta.env.VITE_API_URL
+}/logout`, {}, { withCredentials: true });
     setUser(null);
   };
 

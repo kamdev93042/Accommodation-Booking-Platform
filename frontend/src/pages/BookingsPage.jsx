@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import AccountNav from "../AccountNav";
 import axios from "axios";
 import { differenceInCalendarDays } from "date-fns";
+import.meta.env.VITE_API_URL
+
 
 export default function BookingsPage() {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:4000/bookings", { withCredentials: true })
+    axios.get(`${import.meta.env.VITE_API_URL
+}/bookings`, { withCredentials: true })
       .then(res => setBookings(res.data))
       .catch(err => console.log("Error fetching bookings:", err));
   }, []);

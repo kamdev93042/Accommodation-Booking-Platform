@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import.meta.env.VITE_API_URL
+
 
 export default function IndexPage() {
   const [places, setPlaces] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:4000/places").then((response) => {
+    axios.get(`${import.meta.env.VITE_API_URL
+}/places`).then((response) => {
       setPlaces(response.data);
     });
   }, []);
