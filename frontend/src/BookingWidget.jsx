@@ -10,6 +10,7 @@ export default function BookingWidget({ place }) {
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [redirect, setRedirect] = useState("");
 
   const { user } = useContext(AuthContext);
@@ -107,6 +108,14 @@ export default function BookingWidget({ place }) {
               type="number"
               value={phone}
               onChange={(ev) => setPhone(ev.target.value)}
+              className="border-gray-300"
+            />
+
+             <label>Email:</label>
+            <input
+              type="text"
+              value={email}
+              onChange={(ev) => setEmail(ev.target.value)}
               className="border-gray-300"
             />
           </div>
