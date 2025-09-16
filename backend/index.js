@@ -91,7 +91,7 @@ app.post("/login", async (req, res) => {
 res
   .cookie("token", token, {
     httpOnly: true,  // frontend JS cannot access it
-    secure: true, 
+    secure: t, 
     sameSite: "none"
   })
   .status(200)
@@ -266,72 +266,9 @@ app.get("/places", async (req, res) => {
 })
 
 
-// app.post("/bookings", async (req, res) => {
-//   try {
-//     const { place, checkIn, checkOut, numberOfGuests, name, phone, price, user } = req.body;
-
-//     const booking = await Booking.create({
-//       place,
-//       checkIn,
-//       checkOut,
-//       numberOfGuests,
-//       name,
-//       phone,
-//       price,
-//       user,   //now backend uses the user sent from frontend
-//     });
-
-//     res.json(booking);
-//   } catch (err) {
-//     console.error("Error creating booking:", err);
-//     res.status(500).json({ error: "Failed to create booking", details: err.message });
-//   }
-// });
-
-// app.get("/bookings", async (req, res) => {
-//   try {
-//     const { token } = req.cookies;
-
-//     if (!token) {
-//       return res.status(401).json({ message: "No token provided" });
-//     }
-
-//     const userData = jwt.verify(token, jwt_SECRET);
-
-//     const bookings = await Booking.find({ user: userData.id }).populate("place");
-
-//     res.json(bookings);
-//   } catch (err) {
-//     console.error("Error fetching bookings:", err);
-//     res.status(500).json({ error: "Failed to fetch bookings", details: err.message });
-//   }
-// });
-
-
 app.post("/bookings", async (req, res) => {
   try {
-    const { token } = req.cookies;
-
-    let userId = null; // default for guests
-    if (token) {
-      try {
-        const userData = jwt.verify(token, JWT_SECRET);
-        userId = userData.id; // logged-in user's ID
-      } catch (err) {
-        console.log("Invalid token, proceeding as guest");
-      }
-    }
-
-    const {
-      place,
-      checkIn,
-      checkOut,
-      numberOfGuests,
-      name,
-      phone,
-      email,   // also accept email from frontend form
-      price,
-    } = req.body;
+    const { place, checkIn, checkOut, numberOfGuests, name, phone, price, user } = req.body;
 
     const booking = await Booking.create({
       place,
@@ -340,9 +277,8 @@ app.post("/bookings", async (req, res) => {
       numberOfGuests,
       name,
       phone,
-      email,  // save guest’s email if provided
       price,
-      user: userId, // either logged-in user or null for guests
+      user,   //now backend uses the user sent from frontend
     });
 
     res.json(booking);
@@ -352,30 +288,19 @@ app.post("/bookings", async (req, res) => {
   }
 });
 
-
 app.get("/bookings", async (req, res) => {
   try {
     const { token } = req.cookies;
 
-    if (token) {
-      //  Logged-in user: get bookings by userId
-      const userData = jwt.verify(token, JWT_SECRET);
-      const bookings = await Booking.find({ user: userData.id }).populate("place");
-      return res.json(bookings);
-    } else {
-      //  Guest: identify by phone or email
-      const { phone, email } = req.query;  // frontend must send ?phone=123456 or ?email=test@test.com
-      if (!phone && !email) {
-        return res.status(400).json({ error: "Provide phone or email to fetch guest bookings" });
-      }
-
-      const query = {};
-      if (phone) query.phone = phone;
-      if (email) query.email = email;
-
-      const bookings = await Booking.find(query).populate("place");
-      return res.json(bookings);
+    if (!token) {
+      return res.status(401).json({ message: "No token provided" });
     }
+
+    const userData = jwt.verify(token, jwt_SECRET);
+
+    const bookings = await Booking.find({ user: userData.id }).populate("place");
+
+    res.json(bookings);
   } catch (err) {
     console.error("Error fetching bookings:", err);
     res.status(500).json({ error: "Failed to fetch bookings", details: err.message });
