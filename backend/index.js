@@ -315,7 +315,7 @@ app.post("/bookings", async (req, res) => {
     let userId = null; // default for guests
     if (token) {
       try {
-        const userData = jwt.verify(token, jwt_SECRET);
+        const userData = jwt.verify(token, JWT_SECRET);
         userId = userData.id; // logged-in user's ID
       } catch (err) {
         console.log("Invalid token, proceeding as guest");
@@ -359,7 +359,7 @@ app.get("/bookings", async (req, res) => {
 
     if (token) {
       //  Logged-in user: get bookings by userId
-      const userData = jwt.verify(token, jwt_SECRET);
+      const userData = jwt.verify(token, JWT_SECRET);
       const bookings = await Booking.find({ user: userData.id }).populate("place");
       return res.json(bookings);
     } else {

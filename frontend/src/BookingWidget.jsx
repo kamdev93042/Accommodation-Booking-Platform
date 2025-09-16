@@ -31,6 +31,7 @@ export default function BookingWidget({ place }) {
         numberOfGuests,
         name,
         phone,
+        email,
         place: place._id,
         price: numberOfNights * place.price,
       };
