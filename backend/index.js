@@ -91,8 +91,8 @@ app.post("/login", async (req, res) => {
 res
   .cookie("token", token, {
     httpOnly: true,  // frontend JS cannot access it
-    secure: false, 
-    sameSite: "lax"
+    secure: true, 
+    sameSite: "none"
   })
   .status(200)
   .json({ message: "Login successful" });
