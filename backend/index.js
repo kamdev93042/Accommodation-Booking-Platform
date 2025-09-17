@@ -91,7 +91,7 @@ app.post("/login", async (req, res) => {
 res
   .cookie("token", token, {
     httpOnly: true,  // frontend JS cannot access it
-    secure: t, 
+     secure: process.env.NODE_ENV === "production",
     sameSite: "none"
   })
   .status(200)
@@ -143,7 +143,7 @@ app.post('/upload', photosMiddleware.array('photos', 100), (req, res) => {
   const uploadedFiles = req.files.map(file => ({
     originalname: file.originalname,
     filename: file.filename,
-    url: `${BACKEND_URL}/uploads/${newName}`
+    url: `${BACKEND_URL}/uploads/${file.filename}`
   }));
 
   res.json(uploadedFiles);
