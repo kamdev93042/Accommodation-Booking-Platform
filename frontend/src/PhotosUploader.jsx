@@ -9,8 +9,7 @@ export default function PhotosUploader({ addedPhotos = [], onChange }) {
   async function addPhotoByLink(ev) {
     ev.preventDefault();
     const { data } = await axios.post(
-      `${import.meta.env.VITE_API_URL
-}/upload-by-link`,
+      `${import.meta.env.VITE_API_URL}/upload-by-link`,
       { link: photoLink }
     );
 
@@ -26,8 +25,7 @@ export default function PhotosUploader({ addedPhotos = [], onChange }) {
       data.append("photos", files[i]);
     }
     axios
-      .post(`${import.meta.env.VITE_API_URL
-}/upload`, data, {
+      .post(`${import.meta.env.VITE_API_URL}/upload`, data, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       })
@@ -72,8 +70,7 @@ function selectAsMainPhoto(filename) {
           addedPhotos.map(filename => (
             <div key={filename} className="flex relative">
               <img
-                src={`${import.meta.env.VITE_API_URL
-}/uploads/${filename}`}
+                src={`${import.meta.env.VITE_API_URL}/uploads/${filename}`}
                 alt=""
                 className="h-32 w-full object-cover rounded-2xl"
               />

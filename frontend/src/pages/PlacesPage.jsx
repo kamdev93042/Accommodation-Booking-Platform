@@ -9,8 +9,7 @@ export default function PlacesPage() {
     const [places, setPlaces] = useState([]);
 
     useEffect(() => {
-        axios.get(`${import.meta.env.VITE_API_URL
-}/user-places`).then(({data}) => {
+        axios.get(`${import.meta.env.VITE_API_URL}/user-places`).then(({data}) => {
             setPlaces(data);
         });
     }, []);
@@ -33,8 +32,7 @@ export default function PlacesPage() {
                         <Link to={'/account/places/'+place._id} key={place._id} className="cursor-pointer flex bg-gray-200 p-4 gap-4 rounded-2xl">
                         {place.photos?.length > 0 && (
                             <img
-                             src={`${import.meta.env.VITE_API_URL
-}/uploads/${place.photos[0]}`}
+                             src={`${import.meta.env.VITE_API_URL}/uploads/${place.photos[0]}`}
                             alt={place.title}
                             className="rounded-2xl w-32 h-32 object-cover"
                             />

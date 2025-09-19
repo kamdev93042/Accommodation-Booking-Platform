@@ -13,8 +13,7 @@ export default function PlacePage() {
         if(!id) {
             return;
         }
-        axios.get(`${import.meta.env.VITE_API_URL
-}/places/${id}`).then(response =>{
+        axios.get(`${import.meta.env.VITE_API_URL}/places/${id}`).then(response =>{
             setPlace(response.data);
         })
 
@@ -39,8 +38,7 @@ export default function PlacePage() {
                     </div>
                     {place?.photos?.length > 0 && place.photos.map(photo =>(
                     <div className="mt-8">
-                        <img src={`${import.meta.env.VITE_API_URL
-}/uploads/`+photo}
+                        <img src={`${import.meta.env.VITE_API_URL}/uploads/`+photo}
                         alt="" />
                     </div>
                 ))}
@@ -68,8 +66,7 @@ export default function PlacePage() {
                              <img
                              onClick={() => setShowAllPhotos(true)} 
                              className="aspect-square w-full h-full object-cover cursor-pointer"
-                             src={`${import.meta.env.VITE_API_URL
-}/uploads/${place.photos[0]}`} 
+                             src={`${import.meta.env.VITE_API_URL}/uploads/${place.photos[0]}`} 
                           alt=""/>
                         </div>
                     )}
@@ -80,8 +77,7 @@ export default function PlacePage() {
                           <img
                           onClick={() => setShowAllPhotos(true)} 
                           className="aspect-square w-full h-full object-cover cursor-pointer  "
-                           src={`${import.meta.env.VITE_API_URL
-}/uploads/${place.photos[1]}`} 
+                           src={`${import.meta.env.VITE_API_URL}/uploads/${place.photos[1]}`} 
                           alt=""/>
                     
                     )}
@@ -90,8 +86,7 @@ export default function PlacePage() {
                           <img 
                           onClick={() => setShowAllPhotos(true)} 
                           className="aspect-square w-full h-full object-cover cursor-pointer  relative top-2"
-                          src={`${import.meta.env.VITE_API_URL
-}/uploads/${place.photos[2]}`} 
+                          src={`${import.meta.env.VITE_API_URL}/uploads/${place.photos[2]}`} 
                           alt=""
                           />
                     

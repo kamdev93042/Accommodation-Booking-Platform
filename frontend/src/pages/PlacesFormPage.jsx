@@ -26,8 +26,7 @@ export default function PlacesFormPage(){
         if(!id) {
             return;
         }
-        axios.get(`${import.meta.env.VITE_API_URL
-}/places/` + id).then(res => {
+        axios.get(`${import.meta.env.VITE_API_URL}/places/` + id).then(res => {
             const { data } = res;
             setTitle(data.title);
             setAddress(data.address);
@@ -81,15 +80,13 @@ export default function PlacesFormPage(){
         };
         if(id) {
             //update
-             await axios.put(`${import.meta.env.VITE_API_URL
-}/places`, {
+             await axios.put(`${import.meta.env.VITE_API_URL}/places`, {
                 id, ...placeData
         });
         setRedirect(true);
         } else{
             //new place
-            await axios.post(`${import.meta.env.VITE_API_URL
-}/places`, placeData
+            await axios.post(`${import.meta.env.VITE_API_URL}/places`, placeData
         );
 
         setRedirect(true);
